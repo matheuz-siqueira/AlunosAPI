@@ -1,6 +1,18 @@
+using AlunosAPI.Data;
+
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<Context>(options =>
+{
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("Connection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("Connection"))
+        );
+});
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
