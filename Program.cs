@@ -1,6 +1,10 @@
 using AlunosAPI.Data;
+using AlunosAPI.Services;
+using AlunosAPI.Mapper;
+using AlunosAPI.Repositories;
 
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +17,20 @@ builder.Services.AddDbContext<Context>(options =>
         );
 });
 
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<StudentRepository>();
+
+
+builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new MappingProfile());
+}).CreateMapper());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
