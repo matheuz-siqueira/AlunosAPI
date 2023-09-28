@@ -17,36 +17,45 @@ public class StudentService : IStudentService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<Student>> GetAllAsync()
+    public async Task<IEnumerable<StudentResponseJson>> GetAllAsync()
     {
-        var response = await _repository.GetAllAsync();
+        var students = await _repository.GetAllAsync();
+        var response = _mapper.Map<List<StudentResponseJson>>(students);
         return response;
     }
 
-    public async Task<Student> GetByIdAsync(int id)
+    public async Task<StudentResponseJson> GetByIdAsync(int id)
     {
-        var response = await _repository.GetByIdAsync(id);
-        return response;
-    }
-
-    public async Task<IEnumerable<Student>> GetByNameAsync(string name)
-    {
-        IEnumerable<Student> response;
-        if (!string.IsNullOrWhiteSpace(name))
+        var student = await _repository.GetByIdAsync(id);
+        if (student is null)
         {
-            response = await _repository.GetByNameAsync(name);
+            throw new StudentNotFoundException("student not found");
+        }
+        var resposne = _mapper.Map<StudentResponseJson>(student);
+        return resposne;
+    }
+
+    public async Task<IEnumerable<StudentResponseJson>> GetByNameAsync(GetStudentsRequestJson request)
+    {
+        IEnumerable<Student> students;
+        if (!string.IsNullOrWhiteSpace(request.Name))
+        {
+            students = await _repository.GetByNameAsync(request.Name);
         }
         else
         {
-            response = await _repository.GetAllAsync();
+            students = await _repository.GetAllAsync();
         }
+        var response = _mapper.Map<List<StudentResponseJson>>(students);
         return response;
     }
 
-    public async Task RegisterAsync(RegisterStudentRequestJson request)
+    public async Task<StudentResponseJson> RegisterAsync(RegisterStudentRequestJson request)
     {
         var model = _mapper.Map<Student>(request);
         await _repository.RegisterAsync(model);
+        var response = _mapper.Map<StudentResponseJson>(model);
+        return response;
     }
 
     public async Task UpdateAsync(UpdateStudentRequestJson request, int id)

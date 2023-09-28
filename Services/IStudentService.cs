@@ -4,10 +4,10 @@ using AlunosAPI.DTOs.Student;
 namespace AlunosAPI.Services;
 public interface IStudentService
 {
-    Task<IEnumerable<Student>> GetAllAsync();
-    Task<Student> GetByIdAsync(int id);
-    Task<IEnumerable<Student>> GetByNameAsync(string name);
-    Task RegisterAsync(RegisterStudentRequestJson request);
+    Task<IEnumerable<StudentResponseJson>> GetAllAsync();
+    Task<StudentResponseJson> GetByIdAsync(int id);
+    Task<IEnumerable<StudentResponseJson>> GetByNameAsync(GetStudentsRequestJson name);
+    Task<StudentResponseJson> RegisterAsync(RegisterStudentRequestJson request);
     Task UpdateAsync(UpdateStudentRequestJson request, int id);
     Task DeleteAsync(int id);
 }
