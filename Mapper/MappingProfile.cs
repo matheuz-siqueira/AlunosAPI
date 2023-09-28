@@ -10,10 +10,15 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         RequestToEntity();
+        EntityToResponse();
     }
 
     private void RequestToEntity()
     {
         CreateMap<RegisterStudentRequestJson, Student>();
+    }
+    private void EntityToResponse()
+    {
+        CreateMap<Student, StudentResponseJson>();
     }
 }
