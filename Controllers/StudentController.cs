@@ -36,7 +36,7 @@ public class StudentController : ControllerBase
         }
     }
 
-    [HttpPost("get-by-name")]
+    [HttpPost("search")]
     public async Task<ActionResult<IAsyncEnumerable<StudentResponseJson>>> GetByName(
         GetStudentsRequestJson name)
     {
@@ -56,7 +56,7 @@ public class StudentController : ControllerBase
         }
     }
 
-    [HttpGet("get-by-id/{id:int}", Name = "GetStudent")]
+    [HttpGet("{id:int}", Name = "GetStudent")]
     public async Task<ActionResult<StudentResponseJson>> GetStudent(int id)
     {
         try
@@ -74,7 +74,7 @@ public class StudentController : ControllerBase
         }
     }
 
-    [HttpPost("register-student")]
+    [HttpPost("create")]
     public async Task<ActionResult> Create(RegisterStudentRequestJson request)
     {
         try
@@ -88,7 +88,7 @@ public class StudentController : ControllerBase
         }
     }
 
-    [HttpPut("update-student/{id:int}")]
+    [HttpPut("{id:int}")]
     public async Task<ActionResult> Edit(UpdateStudentRequestJson request, int id)
     {
         try
@@ -106,7 +106,7 @@ public class StudentController : ControllerBase
         }
     }
 
-    [HttpDelete("delete-student/{id:int}")]
+    [HttpDelete("{id:int}")]
     public async Task<ActionResult> Delete(int id)
     {
         try
