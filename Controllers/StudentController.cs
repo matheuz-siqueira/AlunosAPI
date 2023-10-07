@@ -3,11 +3,15 @@ using AlunosAPI.Services;
 using AlunosAPI.DTOs.Student;
 using AlunosAPI.Exceptions;
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 namespace AlunosAPI.Controllers;
 
 [Route("api/student")]
 [Produces("application/json")]
 [ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class StudentController : ControllerBase
 {
     private IStudentService _service;
