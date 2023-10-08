@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AlunosAPI.Repositories;
 
-public class StudentRepository
+public class StudentRepository : IStudentRepository
 {
     private readonly Context _context;
     public StudentRepository(Context context)
