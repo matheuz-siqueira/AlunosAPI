@@ -42,7 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IAuthenticate, AuthenticateService>();
-builder.Services.AddScoped<StudentRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 
 builder.Services.AddScoped(provider => new AutoMapper.MapperConfiguration(cfg =>

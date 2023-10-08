@@ -9,9 +9,9 @@ namespace AlunosAPI.Services;
 
 public class StudentService : IStudentService
 {
-    private readonly StudentRepository _repository;
+    private readonly IStudentRepository _repository;
     private readonly IMapper _mapper;
-    public StudentService(StudentRepository repository, IMapper mapper)
+    public StudentService(IStudentRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
